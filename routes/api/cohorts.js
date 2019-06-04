@@ -20,6 +20,15 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.get('/:id/students', (req, res) => {
+    const { id } = req.params;
+    db('cohorts').where({ id: id }).innerJoin('students', 'cohorts.id', 'students.cohort_id').then(function (data) {
+        // db('cohorts').where({ id: id }).then(function (data) {
+        res.send(data);
+    })
+})
+
+
 
 router.post('/', (req, res) => {
     const name = req.body;
