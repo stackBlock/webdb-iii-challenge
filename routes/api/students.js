@@ -7,6 +7,9 @@ console.log(knexConfig);
 const db = knex(knexConfig);
 
 
+let studentName = "";
+
+
 router.get('/', (req, res) => {
     db('students').then(function (data) {
         res.json(data);
@@ -15,11 +18,22 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+    // let studentName = "";
     const { id } = req.params;
     db('students').where({ id: id }).then(function (data) {
-        res.send(data);
-    })
+        studentName = data[0].name;
+
+    });
+    return res.json(studentName);
+
 })
+
+
+
+
+
+
+
 
 
 router.post('/', (req, res) => {
